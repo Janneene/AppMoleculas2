@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RL1"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+
+    <android.opengl.GLSurfaceView
+        android:id="@+id/GLView"
+        android:layout_width="400dip"
+        android:layout_height="500dip"
+        android:layout_centerHorizontal="true"
+
+        />
+
+
+    <Button
+        android:id="@+id/bOk"
+        android:layout_width="50dip"
+        android:layout_height="50dip"
+        android:text="OK"
+        android:layout_below="@id/GLView"
+        android:layout_centerHorizontal="true"
+        />
+</RelativeLayout>
