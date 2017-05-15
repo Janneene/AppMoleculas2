@@ -25,8 +25,8 @@ public class AtomoRenderer implements GLSurfaceView.Renderer {
 
     public float transY, transZ, transX;
     public float mTransY, mTransX, mTranxZ;
-    public float mTransY2, mTransX2, mTranxZ2;
-    public float mTransY3, mTransX3, mTranxZ3;
+    public float mTransY2, mTransX2=2.5f, mTranxZ2;
+    public float mTransY3, mTransX3=2.5f, mTranxZ3;
     public float x1, y1, z1;
     public float x2, y2, z2;
     public float x3, y3, z3;
@@ -36,9 +36,9 @@ public class AtomoRenderer implements GLSurfaceView.Renderer {
         oxigenio = new Atomo(20, 20, .5f, 1.0f);
         oxigenio.setPosition(-0.2f, 5.0f, 0.0f);
         hidrogenio = new Atomo_azul(20, 20, .2f, 1.0f);
-        hidrogenio.setPosition(0.0f, 0.0f, 0.0f);
+        hidrogenio.setPosition(3.0f, 0.0f, 0.0f);
         hidrogenio2 = new Atomo_azul(20,20, .2f, 1.0f);
-        hidrogenio2.setPosition(0.0f, 0.0f, 0.0f);
+        hidrogenio2.setPosition(2.0f, 0.0f, 0.0f);
         //transZ = -5.0f; // quanto mais perto do zero, maior fica
     }
 
@@ -67,13 +67,15 @@ public class AtomoRenderer implements GLSurfaceView.Renderer {
         gl.glPopMatrix();
         //HIDROGENIO1
         gl.glPushMatrix();
-        gl.glTranslatef(2f, 3f, -9.0f);
+       // gl.glTranslatef(2f, 2.5f, -9.0f);
+        gl.glTranslatef(-mTransX2, mTransY2, -9.0f);
         executeAtomoA(hidrogenio, gl);
         gl.glPopMatrix();
 
         //HIDROGENIO2
         gl.glPushMatrix();
-        gl.glTranslatef(1f, 3f, -9.0f);
+        gl.glTranslatef(-mTransX3, mTransY3, -9.0f);
+        //gl.glTranslatef(1f, 2.5f, -9.0f);
        // gl.glRotatef(angle, 1,0,0);
       //  gl.glRotatef(angle,0,1,0);
         executeAtomoA(hidrogenio2, gl);
@@ -148,5 +150,35 @@ public class AtomoRenderer implements GLSurfaceView.Renderer {
         mTransX = mX;
     }
 
+    public float getY2() {
+        return mTransY2;
+    }
 
+    public void setY2(float mY) {
+        mTransY2 = mY;
+    }
+
+    public float getX2() {
+        return mTransX2;
+    }
+
+    public void setX2(float mX) {
+        mTransX2 = mX;
+    }
+
+    public float getY3() {
+        return mTransY3;
+    }
+
+    public void setY3(float mY) {
+        mTransY3 = mY;
+    }
+
+    public float getX3() {
+        return mTransX3;
+    }
+
+    public void setX3(float mX) {
+        mTransX3 = mX;
+    }
 }

@@ -40,7 +40,7 @@ public class MainActivity extends Activity {
         bOk.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 //Do stuff here
-                if(controle<3){
+                if(controle<2){
                     controle++;
                 }
                 else{
@@ -52,21 +52,32 @@ public class MainActivity extends Activity {
         glView.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent e) {
-                float x = e.getX();
+                float x = e.getX(); //acho q ta pegando onde o dedo esta
                 float y = e.getY();
 
                 switch (e.getAction()) {
                     case MotionEvent.ACTION_MOVE:
 
                         float dx = x - mPreviousX;
-                        atomoRenderer.setX(atomoRenderer.getX() - (dx * TOUCH_SCALE_FACTOR));
-
                         float dy = y - mPreviousY;
-                        atomoRenderer.setY(atomoRenderer.getY() - (dy * TOUCH_SCALE_FACTOR));
+                        if(controle==0) {
+                            atomoRenderer.setX(atomoRenderer.getX() - (dx * TOUCH_SCALE_FACTOR));
+                            atomoRenderer.setY(atomoRenderer.getY() - (dy * TOUCH_SCALE_FACTOR));
+                        } else if (controle==1){
+                            atomoRenderer.setX2(atomoRenderer.getX2() - (dx * TOUCH_SCALE_FACTOR));
+                            atomoRenderer.setY2(atomoRenderer.getY2() - (dy * TOUCH_SCALE_FACTOR));
+                        } else {
+                            atomoRenderer.setX3(atomoRenderer.getX3() - (dx * TOUCH_SCALE_FACTOR));
+                            atomoRenderer.setY3(atomoRenderer.getY3() - (dy * TOUCH_SCALE_FACTOR));
+                        }
+                        break;
+                   // case MotionEvent.ACTION_
                 }
 
                 mPreviousX = x;
                 mPreviousY = y;
+                x=0;
+                y=0;
                 return true;
             }
         });
