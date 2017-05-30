@@ -9,19 +9,48 @@
 
     <android.opengl.GLSurfaceView
         android:id="@+id/GLView"
-        android:layout_width="400dip"
-        android:layout_height="500dip"
-        android:layout_centerHorizontal="true"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
 
-        />
-
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
     <Button
-        android:id="@+id/bOk"
-        android:layout_width="50dip"
-        android:layout_height="50dip"
-        android:text="OK"
+        android:id="@+id/bH"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:text="Hidrogênio"
         android:layout_below="@id/GLView"
         android:layout_centerHorizontal="true"
         />
+    <Button
+        android:id="@+id/bO"
+        android:layout_width="100dip"
+        android:layout_height="50dip"
+        android:text="Oxigênio"
+        android:layout_below="@id/GLView"
+        android:layout_centerHorizontal="true"
+        />
+    <Button
+        android:id="@+id/bC"
+        android:layout_width="70dip"
+        android:layout_height="50dip"
+        android:text="Cloro"
+        android:layout_below="@id/GLView"
+        android:layout_centerHorizontal="true"
+        />
+    <Button
+        android:id="@+id/bS"
+        android:layout_width="70dip"
+        android:layout_height="50dip"
+        android:text="Sódio"
+        android:layout_below="@id/GLView"
+        android:layout_centerHorizontal="true"
+        />
+</LinearLayout>
+
 </RelativeLayout>

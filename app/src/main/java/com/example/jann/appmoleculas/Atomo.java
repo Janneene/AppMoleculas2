@@ -19,28 +19,35 @@ public class Atomo {
     private float m_Scale;
     private float m_Squash;
     private float m_Radius;
+    float colorIncrement;
+    float blue;
+    float red;
+    int cIndex = 0;
+    private int m_Cor;
     private int m_Stacks, m_Slices;
     public float[] m_Pos = {0.0f, 0.0f, 0.0f};
 
-    public Atomo(int stacks, int slices, float radius, float squash) {
+    public Atomo(int stacks, int slices, float radius, float squash, int cor) {
         this.m_Stacks = stacks;
         this.m_Slices = slices;
         this.m_Radius = radius;
         this.m_Squash = squash;
-        init(m_Stacks, m_Slices, radius, squash, "dummy");
+        this.m_Cor = cor;
+        init(m_Stacks, m_Slices, radius, squash, "dummy", m_Cor);
     }
-    private void init(int stacks, int slices, float radius, float squash, String textureFile) {
+    public void init(int stacks, int slices, float radius, float squash, String textureFile, int cor) {
         float[] vertexData;
         float[] colorData;
-        float colorIncrement = 0f;
-        float blue = 0f;
-        float red = 1.0f;
         int numVertices = 0;
         int vIndex = 0;
-        int cIndex = 0;
+        colorIncrement = 0f;
+        blue = 0f;
+        red = 1.0f;
+        colorIncrement = 1.0f / (float) stacks;
+
+        cIndex = 0;
         m_Scale = radius;
         m_Squash = squash;
-        colorIncrement = 1.0f / (float) stacks;
     {
         m_Stacks = stacks;
         m_Slices = slices;
@@ -77,31 +84,44 @@ public class Atomo {
                 vertexData[vIndex + 4] = m_Scale * (sinPhi1 * m_Squash);
                 vertexData[vIndex + 5] = m_Scale * (cosPhi1 * sinTheta);
 
+                switch(cor){
+                    case 1:
+                        corVermelha(colorData);
+                        break;
+                    case 2:
+                        blue = -0.9f;
+                        red = 1.0f;
+                        corAzul(colorData);
+                        break;
+                    case 3:
+                        corBranca(colorData);
+                        break;
+                    case 4:
 
-                colorData[cIndex+0] = (float)red; //12
-                colorData[cIndex+1] = (float)0f;
-                colorData[cIndex+2] = (float)blue;
-                colorData[cIndex+4] = (float)red;
-                colorData[cIndex+5] = (float)0f;
-                colorData[cIndex+6] = (float)blue;
-                colorData[cIndex+3] = (float)1.0;
-                colorData[cIndex+7] = (float)1.0;
+                        corVerde(colorData);
+                        break;
+                }
 
-                /* Ficar tudinho vermelho
-                colorData[cIndex + 0] = 1f;
-                colorData[cIndex + 1] = 0f;
-                colorData[cIndex + 2] = 0f;
-                colorData[cIndex + 3] = 1f;
-                colorData[cIndex + 4] = 1f;
-                colorData[cIndex + 5] = 0f;
-                colorData[cIndex + 6] = 0f;
-                colorData[cIndex + 7] = 1f;
-                */
-                cIndex += 2 * 4;
+                cIndex+=2*4;
                 vIndex += 2 * 3;
             }
-            //blue += colorIncrement;
-            red -= colorIncrement;
+            switch(cor){
+                case 1:
+                    red -= colorIncrement;
+                    break;
+                case 2:
+                    blue += colorIncrement;
+                    red -= colorIncrement;
+                    break;
+                case 3:
+                    blue += colorIncrement;
+                    red -= colorIncrement;
+                    break;
+                case 4:
+                    blue += colorIncrement;
+                    red -= colorIncrement;
+                    break;
+            }
 
             vertexData[vIndex + 0] = vertexData[vIndex + 3] = vertexData[vIndex - 3];
             vertexData[vIndex + 1] = vertexData[vIndex + 4] = vertexData[vIndex - 2];
@@ -136,5 +156,91 @@ public class Atomo {
         m_Pos[2] = z;
     }
 
+    public void corVermelha(float[] colorData){
+        colorData[cIndex+0] = (float)red; //12
+        colorData[cIndex+1] = (float)0f;
+        colorData[cIndex+2] = (float)blue;
+        colorData[cIndex+4] = (float)red;
+        colorData[cIndex+5] = (float)0f;
+        colorData[cIndex+6] = (float)blue;
+        colorData[cIndex+3] = (float)1.0;
+        colorData[cIndex+7] = (float)1.0;
 
+    }
+
+    public void corAzul(float[] colorData){
+
+        colorData[cIndex+0] = (float)blue; //12
+        colorData[cIndex+1] = (float)0f;
+        colorData[cIndex+2] = (float)red;
+        colorData[cIndex+4] = (float)blue;
+        colorData[cIndex+5] = (float)0f;
+        colorData[cIndex+6] = (float)red;
+        colorData[cIndex+3] = (float)blue;
+        colorData[cIndex+7] = (float)0.0;
+    }
+
+    public void corBranca(float[] colorData){
+        colorData[cIndex+0] = (float)blue; //12
+        colorData[cIndex+1] = 0.5f;
+        colorData[cIndex+2] = 0.5f;
+        colorData[cIndex+4] = 0.5f;
+        colorData[cIndex+5] = 0.5f;
+        colorData[cIndex+6] = 0.5f;
+        colorData[cIndex+3] = 0.5f;
+        colorData[cIndex+7] = 0.5f;
+    }
+
+    public void corVerde(float[] colorData){
+        colorData[cIndex+0] = (float)blue; //12
+        colorData[cIndex+1] = (float)1.0f;
+        colorData[cIndex+2] = (float)0.0f;
+        colorData[cIndex+4] = (float)blue;
+        colorData[cIndex+5] = (float)1.0f;
+        colorData[cIndex+6] = (float)0.0f;
+        colorData[cIndex+3] = (float)red;
+        colorData[cIndex+7] = (float)1.0f;
+
+        /*
+        colorData[cIndex+0] = (float)blue; //12
+        colorData[cIndex+1] = (float)1.0f;
+        colorData[cIndex+2] = (float)1.0f;
+        colorData[cIndex+4] = (float)blue;
+        colorData[cIndex+5] = (float)1.0f;
+        colorData[cIndex+6] = (float)0.0f;
+        colorData[cIndex+3] = (float)red;
+        colorData[cIndex+7] = (float)1.0f;
+
+        colorData[cIndex+0] = (float)blue; //12
+        colorData[cIndex+1] = (float)1.0f;
+        colorData[cIndex+2] = (float)0.0f;
+        colorData[cIndex+4] = (float)blue;
+        colorData[cIndex+5] = (float)1.0f;
+        colorData[cIndex+6] = (float)0.0f;
+        colorData[cIndex+3] = (float)blue;
+        colorData[cIndex+7] = (float)1.0f;*/
+    }
+    public void corRoxa(float[] colorData){
+        blue = 0.5f;
+        red = 1.0f;
+
+
+        colorData[cIndex+0] = (float)blue; //12
+        colorData[cIndex+1] = (float)0f;
+        colorData[cIndex+2] = (float)red;
+        colorData[cIndex+4] = (float)blue;
+        colorData[cIndex+5] = (float)0f;
+        colorData[cIndex+6] = (float)red;
+        colorData[cIndex+3] = (float)1.0;
+        colorData[cIndex+7] = (float)red;
+
+        /*colorData[cIndex+0] = (float)0f; //12
+        colorData[cIndex+1] = (float)0f;
+        colorData[cIndex+2] = (float)0.5f;
+        colorData[cIndex+4] = (float)0.5f;
+        colorData[cIndex+5] = (float)0f;
+        colorData[cIndex+6] = (float)0.8f;
+        colorData[cIndex+3] = (float)0.2f;
+        colorData[cIndex+7] = (float)0.4f;*/
+    }
 }
